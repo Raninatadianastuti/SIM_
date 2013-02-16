@@ -8,6 +8,10 @@
 mysql_connect("localhost", "root", "");
 mysql_select_db("sim");
  
+$del = $_GET['file'];
+$no_applicant = $_GET['id_applicant'];
+$mode = $_POST['mode'];
+
 $noap = $_POST['no_applicant'];
 $noid = $_POST['no_identitas'];
 $nama = $_POST['nama_lengkap'];
@@ -26,14 +30,26 @@ $penempatan = $_POST['penempatan'];
 $posisi = $_POST['posisi'];
 $foto = $_POST['image'];
     
-  $simpan = mysql_query ("INSERT INTO applicant VALUES ('$noap','$noid','$nama','$alamat','$kota','$tlp','$email','$ttl','$tgl_lahir',
+ 
+if ($mode == 'add'){
+         $simpan = mysql_query ("INSERT INTO applicant VALUES ('$noap','$noid','$nama','$alamat','$kota','$tlp','$email','$ttl','$tgl_lahir',
 											'$jk','$status','$agama','$gol','$pend','$penempatan','$posisi','$foto','1')") or die("Kesalahan : ".mysql_error());
 	$jadwal=mysql_query ("INSERT INTO penjadwalan VALUES ('$noap','','')") or die("Kesalahan : ".mysql_error());
-  
-	if ($simpan && $jadwal){											
-  header('location:../home.php?file=adm_data');
-}else{
-echo "<font color=red>Data Gagal Disimpan</font>";
+          header('location:../home.php?file=adm_data');
+        }else{
+        echo "<font color=red>Data Gagal Disimpan</font>";
+}
+
+if ($mode == 'update' & !empty($noid)){	
+          $update = mysql_query ("UPDATE applicant SET no_applicant ='$noap', no_identitas = '$noid', nama_lengkap = '$nama', alamat='$alamat', kota = '$kota', no_tlp = '$tlp', email = '$email', tempat_lahir='$ttl', tgl_lahir='$tgl_lahir', jenis_kelamin='$jk', status_pernikahan='$status', agama='$agama', gol_darah='$gol', pendidikan='$pend', penempatan='$penempatan', posisi='$posisi', image='$foto' where no_applicant = '$noap'");
+          header('location:../home.php?file=adm_data');
+        }else{
+        echo "<font color=red>Data Gagal Disimpan</font>";
+}
+
+if($del == 'del_applicant' & !empty($no_applicant)){
+        $delete = mysql_query("DELETE FROM applicant where no_applicant ='$no_applicant'");
+        header('location:../SIM/home.php?file=adm_data');
 }
 
 ?>
