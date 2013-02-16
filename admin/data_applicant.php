@@ -85,8 +85,8 @@ if($_SESSION['level'] == "admin"){
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[posisi]</td>
 					<td style='border:1px solid #CBF3C2; width: 100%;'><center>
                     <a href='?file=edit_nilai&id_mhs=$row[nim_mhs]'><img src='images/det.png' width='16' height='16' border='0'></a> | 
-					<a href='?file=edit_nilai&id_mhs=$row[nim_mhs]'><img src='images/edit.png' width='16' height='16' border='0'></a> |
-					<a href='?file=edit_nilai&id_mhs=$row[nim_mhs]'><img src='images/del.png' width='16' height='16' border='0'></a>
+					<a href='?file=edit_nilai&id_applicant=$row[no_applicant]'><img src='images/edit.png' width='16' height='16' border='0'></a> |
+					<a href='?file=del_applicant&id_applicant=$row[no_applicant]'><img src='images/del.png' width='16' height='16' border='0'></a>
 					</td>
 		         </tr>";
 			$x++;
