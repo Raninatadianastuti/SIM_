@@ -61,7 +61,7 @@ WHERE penjadwalan.jadwal !='0000-00-00' AND konfirmasi = ''";
 					<select name='konfirm'>
 					<option value=''>Pilih</option>
 					<option value='Hadir' id=Hadir onclick="prosesKonfirmasi(<?php echo $row[no_applicant]; ?>);">Hadir</option>
-					<option value='Tidak Hadir' id="Tidak Hadir" onclick="document.location='?file=proses_konfirmasi'">Tidak Hadir</option>
+					<option value='Tidak Hadir' id="Tidak Hadir" onclick="prosesKonfirmasi2(<?php echo $row[no_applicant]; ?>);">Tidak Hadir</option>
 					</select>
 					</td>
 		         </tr><?php
@@ -90,6 +90,36 @@ function prosesKonfirmasi(id){
 		 
 		 $.ajax({
 			url:"admin/konfirmasi_pros.php?no_applicant="+id,
+			type:"GET",
+			success:function(hasil)
+			{
+				if(hasil==1)
+				{
+					//alert("ok");
+					window.location = "home.php?file=konfirm";
+				}
+				else
+				{
+					alert(hasil);
+				}
+			}
+		 });
+
+    }
+
+}
+</script>
+<script type="text/javascript">
+function prosesKonfirmas2(id){
+
+    var conf = confirm("Anda Yakin Applicant tersebut Hadir?");
+
+    if(conf == true){
+
+         //alert("OK... you chose to proceed with deletion of "+id);
+		 
+		 $.ajax({
+			url:"admin/konfirmasi_pros2.php?no_applicant="+id,
 			type:"GET",
 			success:function(hasil)
 			{
