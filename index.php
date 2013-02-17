@@ -62,21 +62,6 @@ switch($_GET['menu']) {
 
 <?php if ($_SESSION['level'] == "admin"){
 ?>
-<div id="main">
-<div id="container_left">
-    <ul>
-      <li><a href="?menu=home">Home</a></li>
-	  <li><a href="#">Kelola Mahasiswa</a>
-	  	<ul id="sub_menu">
-			<li><a href="?menu=semua-mhs">Semua Mahasiswa</a></li>
-			<li><a href="?menu=ver-mhs">Verifikasi Mahasiswa</a></li>
-		</ul>
-	  </li>
-	  <li><a href="?menu=home">Kelola Dosen</a></li>
-	  <li><a href="?menu=home">Kelola Nilai</a></li>
-
-    </ul>
-</div>
 <div id="container_right">
 <div id="container_right_main">
 <?php include "admin/f_mahasiswa.php";?>
