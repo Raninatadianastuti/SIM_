@@ -55,7 +55,6 @@ if($_SESSION['level'] == "admin"){
    </thead>
    <tbody id="tableBody" style="font-family:trebuchet MS;">
   <?php
-		include "f_connect.php";
 		$query = "SELECT * from applicant";
 		if($searchOptions == "no")
 		{

@@ -1,8 +1,5 @@
 <?php
 
-mysql_connect("localhost", "root", "");
-mysql_select_db("sim");
-
 $id_applicant = $_GET['id_applicant'];
 if ($_GET['file'] == 'adm_applicant'){
 ?>
