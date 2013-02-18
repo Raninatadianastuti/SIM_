@@ -1,9 +1,3 @@
-<?php
-
-mysql_connect("localhost", "root", "");
-mysql_select_db("sim");
-?>
-
 <h3>Data Penjadwalan Applicant</h3>
 <form method="POST" action="?file=add_jadwal" enctype="multipart/form-data"><table width=98%><tr>
 	<input type="hidden" name="mode" value="add"></input>
