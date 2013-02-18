@@ -39,7 +39,7 @@
 		$query = "SELECT applicant.no_applicant, applicant.nama_lengkap, applicant.penempatan, applicant.posisi, penjadwalan.jadwal
 FROM applicant
 LEFT JOIN penjadwalan ON applicant.no_applicant = penjadwalan.no_applicant
-WHERE penjadwalan.jadwal !='0000-00-00' AND konfirmasi = 'Hadir' AND status < 5";
+WHERE penjadwalan.jadwal !='0000-00-00' AND konfirmasi = 1 AND status < 5";
 		$searchQuery = "AND applicant.no_applicant = '$search'";
 		if($searchMode)
 		{
