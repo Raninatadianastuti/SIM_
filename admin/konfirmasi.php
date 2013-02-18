@@ -52,16 +52,16 @@ WHERE penjadwalan.jadwal !='0000-00-00' AND konfirmasi = ''";
 			echo "
 				<tr $row[no_applicant]>
 					<td style='border:1px solid #CBF3C2;' align='center'>$x</td>
-					<td style='border:1px solid #CBF3C2;' align='center'>$row[no_applicant]</td>
+					<td style='border:1px solid #CBF3C2;' align='center' id='noapplicant'>$row[no_applicant]</td>
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[jadwal]</td>
                     <td style='border:1px solid #CBF3C2;' align='center'>$row[nama_lengkap]</td>
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[posisi]</td>
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[penempatan]</td>
 					<td style='border:1px solid #CBF3C2; width: 100%;'><center>"?>
-					<select name='konfirm'>
+					<select name='konfirm' id="konfirmasi" onChange="prosesKonfirmasi(<?php echo $row[no_applicant]; ?>)">
 					<option value=''>Pilih</option>
-					<option value='Hadir' id=Hadir onclick="prosesKonfirmasi(<?php echo $row[no_applicant]; ?>);">Hadir</option>
-					<option value='Tidak Hadir' id="Tidak Hadir" onclick="prosesKonfirmasi2(<?php echo $row[no_applicant]; ?>);">Tidak Hadir</option>
+					<option value='1'>Hadir</option>
+					<option value='0'>Tidak Hadir</option>
 					</select>
 					</td>
 		         </tr><?php
@@ -81,15 +81,24 @@ WHERE penjadwalan.jadwal !='0000-00-00' AND konfirmasi = ''";
 <script type="text/javascript">
 
 function prosesKonfirmasi(id){
-
-    var conf = confirm("Anda Yakin Applicant tersebut Hadir?");
+	var idApplicant = id;
+	var statusApplicant = konfirmasi.options[konfirmasi.selectedIndex].value;
+	
+	if(statusApplicant == 1)
+	{
+		var conf = confirm("Anda Yakin Applicant tersebut Hadir?");
+    }
+    if(statusApplicant == 0)
+    {
+		var conf = confirm("Anda Yakin Applicant tersebut Tidak Hadir?");
+    }
 
     if(conf == true){
 
          //alert("OK... you chose to proceed with deletion of "+id);
 		 
 		 $.ajax({
-			url:"admin/konfirmasi_pros.php?no_applicant="+id,
+			url:"admin/konfirmasi_pros.php?no_applicant="+idApplicant+"&status="+statusApplicant,
 			type:"GET",
 			success:function(hasil)
 			{
@@ -108,35 +117,4 @@ function prosesKonfirmasi(id){
     }
 
 }
-</script>
-<script type="text/javascript">
-function prosesKonfirmas2(id){
-
-    var conf = confirm("Anda Yakin Applicant tersebut Hadir?");
-
-    if(conf == true){
-
-         //alert("OK... you chose to proceed with deletion of "+id);
-		 
-		 $.ajax({
-			url:"admin/konfirmasi_pros2.php?no_applicant="+id,
-			type:"GET",
-			success:function(hasil)
-			{
-				if(hasil==1)
-				{
-					//alert("ok");
-					window.location = "home.php?file=konfirm";
-				}
-				else
-				{
-					alert(hasil);
-				}
-			}
-		 });
-
-    }
-
-}
-
 </script>
