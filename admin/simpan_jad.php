@@ -1,6 +1,6 @@
 <?php
-mysql_connect("localhost", "root", "");
-mysql_select_db("sim");
+
+include "../f_connect.php";
 
  $noap = $_POST['no'];
  $tgl_jadwal = $_POST['thn'].'-'.$_POST['bln'].'-'.$_POST['tgl'];;
