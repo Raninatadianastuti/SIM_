@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.0.1
+-- version 3.5.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 18, 2013 at 04:35 PM
--- Server version: 5.1.37
--- PHP Version: 5.3.0
+-- Generation Time: Feb 18, 2013 at 07:42 PM
+-- Server version: 5.5.29
+-- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -65,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `applicant` (
   `penempatan` varchar(12) NOT NULL,
   `posisi` varchar(20) NOT NULL,
   `image` varchar(50) NOT NULL,
-  `status` int(1) NOT NULL,
+  `status` int(1) NOT NULL COMMENT '1 = buffer (belum terjadwal), 2=hadir, 3=tidak hadir, 4=qualified, 5=not qualified, 6=hired, 7=terminate',
   PRIMARY KEY (`no_applicant`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -92,11 +93,6 @@ CREATE TABLE IF NOT EXISTS `hired` (
   `tgl_hired` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `hired`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -108,11 +104,6 @@ CREATE TABLE IF NOT EXISTS `konfirmasi` (
   `nama_applicant` varchar(100) NOT NULL,
   `konfirmasi` varchar(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `konfirmasi`
---
-
 
 -- --------------------------------------------------------
 
@@ -145,11 +136,6 @@ CREATE TABLE IF NOT EXISTS `result` (
   `nama_applicant` varchar(100) NOT NULL,
   `result` varchar(15) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `result`
---
-
 
 -- --------------------------------------------------------
 
