@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 18, 2013 at 07:42 PM
+-- Generation Time: Feb 19, 2013 at 08:06 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.7
 
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `konfirmasi` (
 CREATE TABLE IF NOT EXISTS `penjadwalan` (
   `no_applicant` int(11) NOT NULL,
   `jadwal` date NOT NULL,
-  `konfirmasi` varchar(10) NOT NULL
+  `konfirmasi` int(2) NOT NULL COMMENT '1=HADIR, 0=TIDAK HADIR'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -122,8 +122,9 @@ CREATE TABLE IF NOT EXISTS `penjadwalan` (
 --
 
 INSERT INTO `penjadwalan` (`no_applicant`, `jadwal`, `konfirmasi`) VALUES
-(2, '0000-00-00', ''),
-(1, '0000-00-00', '');
+(1, '1970-01-01', 1),
+(2, '0000-00-00', 0),
+(2, '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
