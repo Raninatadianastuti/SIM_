@@ -5,8 +5,7 @@
  * @copyright 2011
  */
  
-mysql_connect("localhost", "root", "");
-mysql_select_db("sim");
+include "../f_connect.php";
  
 $del = $_GET['file'];
 $no_applicant = $_GET['id_applicant'];
