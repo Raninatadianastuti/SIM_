@@ -1,7 +1,7 @@
 <?php
 
 $id_applicant = $_GET['id_applicant'];
-if ($_GET['file'] == 'adm_applicant'){
+if (!isset($_GET['id_applicant'])){
 ?>
 
 <h3>Data Applicant</h3>
@@ -133,9 +133,9 @@ if ($_GET['file'] == 'adm_applicant'){
 <input class="button" type="reset" value="Reset">
 </form>
 
-<?php } else if ($_GET['file'] == 'edit_nilai' & !empty( $_GET['id_applicant'])) {
+<?php } else if (!empty( $_GET['id_applicant'])) {
                $id_applicant = $_GET['id_applicant']; 
-               $query = mysql_query("SELECT * FROM applicant where no_applicant = '$id_applicant'") or die (mysql_error());
+               $query = mysql_query("SELECT applicant.*, dayofmonth(applicant.tgl_lahir) as tanggal, month(applicant.tgl_lahir) as bulan, year(applicant.tgl_lahir) as tahun  FROM applicant where no_applicant = '$id_applicant'") or die (mysql_error());
                 if(mysql_num_rows($query) > 0){
                 while($row=mysql_fetch_array($query)){ 
              
@@ -165,24 +165,31 @@ if ($_GET['file'] == 'adm_applicant'){
 									                <?php
 									                for ($tgl=01; $tgl<=31; $tgl++)
 									                {
-									                echo "<option value=$tgl> $tgl </option>";
+														if($tgl == $row['tanggal'])
+														{
+															echo "<option value=$tgl selected> $tgl </option>";
+														}
+														else
+														{
+															echo "<option value=$tgl> $tgl </option>";
+														}
 									                }
 									                ?>
 								                </select> /
 									                <select name="bln" id="bln">
 									                <option value="">Bulan</option>
-									                <option value="1">Januari</option>
-									                <option value="2">Februari</option>
-									                <option value="3">Maret</option>
-									                <option value="4">April</option>
-									                <option value="5">Mei</option>
-									                <option value="6">Juni</option>
-									                <option value="7">Juli</option>
-									                <option value="8">Agustus</option>
-									                <option value="9">September</option>
-									                <option value="10">Oktober</option>
-									                <option value="11">Nopember</option>
-									                <option value="12">Desember</option>
+									                <option value="1" <?php echo $row['bulan']==1 ? "selected" : ""; ?>>Januari</option>
+									                <option value="2" <?php echo $row['bulan']==2 ? "selected" : ""; ?>>Februari</option>
+									                <option value="3" <?php echo $row['bulan']==3 ? "selected" : ""; ?>>Maret</option>
+									                <option value="4" <?php echo $row['bulan']==4 ? "selected" : ""; ?>>April</option>
+									                <option value="5" <?php echo $row['bulan']==5 ? "selected" : ""; ?>>Mei</option>
+									                <option value="6" <?php echo $row['bulan']==6 ? "selected" : ""; ?>>Juni</option>
+									                <option value="7" <?php echo $row['bulan']==7 ? "selected" : ""; ?>>Juli</option>
+									                <option value="8" <?php echo $row['bulan']==8 ? "selected" : ""; ?>>Agustus</option>
+									                <option value="9" <?php echo $row['bulan']==9 ? "selected" : ""; ?>>September</option>
+									                <option value="10" <?php echo $row['bulan']==10 ? "selected" : ""; ?>>Oktober</option>
+									                <option value="11" <?php echo $row['bulan']==11 ? "selected" : ""; ?>>Nopember</option>
+									                <option value="12" <?php echo $row['bulan']==12 ? "selected" : ""; ?>>Desember</option>
 								                </select> /
 										                <select name="thn" id="thn">
 									                <option value="">Tahun</option>
@@ -190,83 +197,91 @@ if ($_GET['file'] == 'adm_applicant'){
 									                $tahun=Date('Y');
 									                for ($thn=1970; $thn<=$tahun; $thn++)
 										                {
-										                echo "<option value=$thn> $thn</option>";
+															if($row['tahun'] == $thn)
+															{
+																echo "<option value=$thn selected> $thn</option>";
+															}
+															else
+															{
+																echo "<option value=$thn> $thn</option>";
+															}
 										                }
 									                ?>
 									                </select></td></tr>
 	                <tr><td><label for="jurl">Jenis Kelamin</label></td>
 	                <td>:  <select name=jenis_kelamin>
-		                <option value=pria>Pria</option>
-		                <option value=wanita>Wanita</option>
+		                <option value=pria <?php echo $row['jenis_kelamin']=="pria" ? "selected" : ""; ?>>Pria</option>
+		                <option value=wanita <?php echo $row['jenis_kelamin']=="wanita" ? "selected" : ""; ?>>Wanita</option>
 	                </select>
 	
 	                </td></tr>
 	                <tr><td><label for="jurl">Status Perkawinan</label></td>
 	                <td>: <select name=status_pernikahan>
 		                <option value="">Pilih Status</option>
-		                <option value="belum menikah">Belum Menikah</option>
-		                <option value="menikah">Menikah</option>
-		                <option value="bercerai hidup">Cerai Hidup</option>
-		                <option value="bercerai mati">Cerai Mati</option>
+		                <option value="belum menikah" <?php echo $row['status_pernikahan']=="belum menikah" ? "selected" : ""; ?>>Belum Menikah</option>
+		                <option value="menikah" <?php echo $row['status_pernikahan']=="menikah" ? "selected" : ""; ?>>Menikah</option>
+		                <option value="bercerai hidup" <?php echo $row['status_pernikahan']=="bercerai hidup" ? "selected" : ""; ?>>Cerai Hidup</option>
+		                <option value="bercerai mati" <?php echo $row['status_pernikahan']=="bercerai mati" ? "selected" : ""; ?>>Cerai Mati</option>
 	                </select>
 	                </td></tr>
 	                <tr><td><label for="jurl">Agama</label></td>
 	                <td>: <select name=agama>
 		                <option value="">Pilih Agama</option>
-		                <option value="Islam">Islam</option>
-		                <option value="Kristen">Kristen</option>
-		                <option value="khatolik">Khatolik</option>
-		                <option value="hindu">Hindu</option>
-		                <option value="budha">Budha</option>
+		                <option value="Islam" <?php echo $row['agama']=="Islam" ? "selected" : ""; ?>>Islam</option>
+		                <option value="Kristen" <?php echo $row['agama']=="Kristen" ? "selected" : ""; ?>>Kristen</option>
+		                <option value="khatolik" <?php echo $row['agama']=="khatolik" ? "selected" : ""; ?>>Khatolik</option>
+		                <option value="hindu" <?php echo $row['agama']=="hindu" ? "selected" : ""; ?>>Hindu</option>
+		                <option value="budha" <?php echo $row['agama']=="budha" ? "selected" : ""; ?>>Budha</option>
 	                </select>
 	                </td></tr>
 	                <tr><td><label for="jurl">Golongan Darah</label></td>
 	                <td>: <select name=gol_darah>
 		                <option value="">Pilih Goldar</option>
-		                <option value="A">A</option>
-		                <option value="B">B</option>
-		                <option value="AB">AB</option>
-		                <option value="O">O</option>
+		                <option value="A" <?php echo $row['gol_darah']=="A" ? "selected" : ""; ?>>A</option>
+		                <option value="B" <?php echo $row['gol_darah']=="B" ? "selected" : ""; ?>>B</option>
+		                <option value="AB" <?php echo $row['gol_darah']=="AB" ? "selected" : ""; ?>>AB</option>
+		                <option value="O" <?php echo $row['gol_darah']=="O" ? "selected" : ""; ?>>O</option>
 	                </select>
 	                </td></tr>
 	                <tr><td><label for="jurl">Pendidikan Terakhir</label></td>
 		                <td>: <select name=pendidikan>
 		                <option value="">Pilih Pendidikan</option>
-		                <option value="SMP">SMP</option>
-		                <option value="SMA">SMA</option>
-		                <option value="D1">D1</option>
-		                <option value="D2">D2</option>
-		                <option value="D3">D3</option>
-		                <option value="S1">S1</option>
-		                <option value="S2">S2</option>
-		                <option value="S3">S3</option>
+		                <option value="SMP" <?php echo $row['pendidikan']=="SMP" ? "selected" : ""; ?>>SMP</option>
+		                <option value="SMA" <?php echo $row['pendidikan']=="SMA" ? "selected" : ""; ?>>SMA</option>
+		                <option value="D1" <?php echo $row['pendidikan']=="D1" ? "selected" : ""; ?>>D1</option>
+		                <option value="D2" <?php echo $row['pendidikan']=="D2" ? "selected" : ""; ?>>D2</option>
+		                <option value="D3" <?php echo $row['pendidikan']=="D3" ? "selected" : ""; ?>>D3</option>
+		                <option value="S1" <?php echo $row['pendidikan']=="S1" ? "selected" : ""; ?>>S1</option>
+		                <option value="S2" <?php echo $row['pendidikan']=="S2" ? "selected" : ""; ?>>S2</option>
+		                <option value="S3" <?php echo $row['pendidikan']=="S3" ? "selected" : ""; ?>>S3</option>
 	                </select>
 	                </td></tr>
 	                <tr><td><label for="jurl">Penempatan</label></td>
 		                <td>: <select name=penempatan>
 		                <option value="">Pilih Penempatan</option>
-		                <option value="DIY">DIY</option>
-		                <option value="Solo">Solo</option>
-		                <option value="magelang">Magelang</option>
-		                <option value="cilacap">Cilacap</option>
-		                <option value="purwokerto">Purwokerto</option>
+		                <option value="DIY" <?php echo $row['penempatan']=="DIY" ? "selected" : ""; ?>>DIY</option>
+		                <option value="Solo" <?php echo $row['penempatan']=="Solo" ? "selected" : ""; ?>>Solo</option>
+		                <option value="magelang" <?php echo $row['penempatan']=="magelang" ? "selected" : ""; ?>>Magelang</option>
+		                <option value="cilacap" <?php echo $row['penempatan']=="cilacap" ? "selected" : ""; ?>>Cilacap</option>
+		                <option value="purwokerto" <?php echo $row['penempatan']=="purwokerto" ? "selected" : ""; ?>>Purwokerto</option>
 	                </select>
 	                </td></tr>
 		                <tr><td><label for="jurl">Posisi</label></td>
 		                <td>: <select name=posisi>
 		                <option value="">Pilih Posisi</option>
-		                <option value="AO">Account Officer</option>
-		                <option value="Admin">Administration</option>
-		                <option value="frontliner">Frontliner</option>
-		                <option value="field">Field People</option>
+		                <option value="AO" <?php echo $row['posisi']=="AO" ? "selected" : ""; ?>>Account Officer</option>
+		                <option value="Admin" <?php echo $row['posisi']=="Admin" ? "selected" : ""; ?>>Administration</option>
+		                <option value="frontliner" <?php echo $row['posisi']=="frontliner" ? "selected" : ""; ?>>Frontliner</option>
+		                <option value="field" <?php echo $row['posisi']=="field" ? "selected" : ""; ?>>Field People</option>
 	                </select>
 	                </td></tr>
 		                <tr><td>Upload Image</td>
 	                <td>: <input type="file" name="imaage"></td></tr>
 	                  </table></tr>
 
-                <input class="button" type="submit" value="Save">
-                <input class="button" type="reset" value="Reset">
+					<input class="button" type="submit" value="Save">
+					<input class="button" type="reset" value="Reset">
+					<INPUT type="button" VALUE="Kembali" onClick="history.go(-1)">
                 </form>
 <?php
 }
