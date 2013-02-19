@@ -86,7 +86,7 @@ if($_SESSION['level'] == "admin"){
 					<a href=\"#\" onclick=\"AddtoPenjadwalan($row[no_applicant]);return false;\"><img src='images/check.png' width='16' height='16' border='0'></a> |
                     <a href='?file=show_applicant&id_mhs=$row[nim_mhs]'><img src='images/det.png' width='16' height='16' border='0'></a> | 
 					<a href='?file=adm_applicant&id_applicant=$row[no_applicant]'><img src='images/edit.png' width='16' height='16' border='0'></a> |
-					<a href='?file=del_applicant&id_applicant=$row[no_applicant]'><img src='images/del.png' width='16' height='16' border='0'></a>
+					<a href='#' onclick='deleteApplicant($row[no_applicant]);return false;'><img src='images/del.png' width='16' height='16' border='0'></a>
 					</td>
 		         </tr>";
 			$x++;
@@ -122,6 +122,33 @@ if($_SESSION['level'] == "admin"){
 				{
 					//alert("ok");
 					window.location = "home.php?file=penjadwalan";
+				}
+				else
+				{
+					alert(hasil);
+				}
+			}
+		 });
+	}
+	
+	}
+	
+	function deleteApplicant(id)
+	{
+	
+	var conf = confirm("Yakin ingin menghapus applicant ini?");
+	
+	if(conf==true)
+	{
+		$.ajax({
+			url:"admin/f_hapus_applicant.php?no_applicant="+id,
+			type:"GET",
+			success:function(hasil)
+			{
+				if(hasil==1)
+				{
+					alert("applicant berhasil dihapus");
+					window.location = "home.php?file=adm_data";
 				}
 				else
 				{
