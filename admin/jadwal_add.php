@@ -1,6 +1,21 @@
-<?php 
-
-    include "f_connect.php";
+<?php 	
+	if(isset($_GET['no_applicant']) AND $_GET['no_applicant'] != "")
+	{
+		include "../f_connect.php";
+		$no_ap = $_GET['no_applicant'];
+		$sql=mysql_query("SELECT * from applicant where no_applicant='$no_ap'") or die (mysql_query());
+		//while ($data=mysql_fetch_array($sql)){
+		if($res = mysql_num_rows($sql) == 1)
+		{
+			//jika hadir
+			$query=mysql_query("insert into penjadwalan values ('$no_ap', '', '0')");
+			echo 1;
+			
+		}
+	}
+	else
+	{
+	include "f_connect.php";
 	$no_ap=$_POST['no_applicant'];
 	$sql=mysql_query("SELECT * from applicant where no_applicant='$no_ap'") or die (mysql_query());
 		$qryi=mysql_query("SELECT * from penjadwalan where no_applicant='$no_ap' and jadwal='0000-00-00'");
@@ -73,6 +88,7 @@
   <tr><td><input type="submit" value="Simpan Jadwal"/> </td></tr></form></table>
   
  <?php
+ }
  }
  }
  ?>
