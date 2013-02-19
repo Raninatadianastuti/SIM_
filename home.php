@@ -6,6 +6,7 @@
  */
 error_reporting(0);
 session_start();
+include "f_connect.php";
 if (!$_SESSION['username']){
     header("location:index.php?menu=masuk");
 } else {
@@ -60,7 +61,7 @@ if (!$_SESSION['username']){
 switch($_GET['file']) {	
 	case welcome : include "admin/f_welcome.php"; break;
 	case adm_applicant : include "admin/aplicant.php"; break;
-	case del_applicant : include "admin/f_simpan_add.php"; break;
+	case del_applicant : include "admin/f_hapus_applicant.php"; break;
 	case adm_data : include "admin/data_applicant.php"; break;
 	case penjadwalan : include "admin/jadwal.php"; break;
 	case add_jadwal : include "admin/jadwal_add.php"; break;
@@ -82,7 +83,7 @@ switch($_GET['file']) {
     case keluar : include "f_logout.php"; break;
 	case simpan_nilai : include "admin/f_simpan_nilai.php"; break;
 	case simpan_nilai2 : include "admin/f_simpan_nilai2.php"; break;
-	case edit_nilai : include "admin/aplicant.php"; break;
+// 	case edit_applicant : include "admin/aplicant.php"; break;
 	case carinilai : include "admin/cari2.php"; break;
 	case seminar : include "admin/f_seminar.php"; break;
 	case simpan_smnr : include "admin/f_simpan_seminar.php"; break;
