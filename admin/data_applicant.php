@@ -18,6 +18,19 @@ if($_SESSION['level'] == "admin"){
 		$searchOptions = "clear";
 		$qWord = "";
 	}
+	
+	function getStatus($status) {
+		switch($status)
+		{
+			case 1 : return "buffer"; break;
+			case 2 : return "terjadwal"; break;
+			case 3 : return "hadir"; break;
+			case 4 : return "tidak hadir"; break;
+			case 5 : return "qualified"; break;
+			case 6 : return "hired"; break;
+			case 7 : return "terminate"; break;
+		}
+	}
 
 ?>
 <p style="font-family:trebuchet MS; color:#006633; font-size:18px; text-decoration:underline; ">DAFTAR APPLICANT</p>
@@ -51,6 +64,7 @@ if($_SESSION['level'] == "admin"){
 	   <th style="width: 20%;" align="center">Penempatan</th>
 	   <th style="width: 15%;" align="center">Posisi</th>
 	   <th style="width: 10%;" align="center">AKSI</th>
+	   <th style="width: 10%;" align="center">STATUS</th>
      </tr>
    </thead>
    <tbody id="tableBody" style="font-family:trebuchet MS;">
@@ -88,6 +102,7 @@ if($_SESSION['level'] == "admin"){
 					<a href='?file=adm_applicant&id_applicant=$row[no_applicant]&mode=edit'><img src='images/edit.png' width='16' height='16' border='0'></a> |
 					<a href='#' onclick='deleteApplicant($row[no_applicant]);return false;'><img src='images/del.png' width='16' height='16' border='0'></a>
 					</td>
+					<td style='border:1px solid #CBF3C2;' align='center'>".getStatus($row['status'])."</td>
 		         </tr>";
 			$x++;
 		  }

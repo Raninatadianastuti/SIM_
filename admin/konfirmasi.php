@@ -38,7 +38,7 @@
 		include "f_connect.php";
 		$query = "SELECT applicant.no_applicant, applicant.nama_lengkap, applicant.penempatan, applicant.posisi, penjadwalan.jadwal FROM applicant
 LEFT JOIN penjadwalan ON applicant.no_applicant = penjadwalan.no_applicant
-WHERE penjadwalan.jadwal !='0000-00-00' AND konfirmasi = ''";
+WHERE penjadwalan.jadwal !='0000-00-00' AND applicant.status = 2";
 		$searchQuery = "AND applicant.no_applicant = '$search'";
 		if($searchMode)
 		{

@@ -7,8 +7,8 @@
 		//while ($data=mysql_fetch_array($sql)){
 		if($res = mysql_num_rows($sql) == 1)
 		{
-			//jika hadir
-			$query=mysql_query("insert into penjadwalan values ('$no_ap', '', '0')");
+			//update status applicant
+			$query1=mysql_query("update applicant set status = 2 where no_applicant = '$no_ap'");
 			echo 1;
 			
 		}

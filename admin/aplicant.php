@@ -20,6 +20,20 @@ function getNamaBulan($bulan) {
 	}
 }
 
+function getStatus($status) {
+	switch($status)
+	{
+		case 1 : return "buffer"; break;
+		case 2 : return "terjadwal"; break;
+		case 3 : return "hadir"; break;
+		case 4 : return "tidak hadir"; break;
+		case 5 : return "qualified"; break;
+		case 6 : return "hired"; break;
+		case 7 : return "terminate"; break;
+	}
+}
+
+
 
 if (!isset($_GET['id_applicant'])){
 ?>
