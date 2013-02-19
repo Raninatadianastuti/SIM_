@@ -49,8 +49,8 @@ if($_SESSION['level'] == "admin"){
 	   <th style="width: 15%;" align="center">No Applicant</th>
 	   <th style="width: 30%;" align="center">Nama Lengkap</th>
 	   <th style="width: 20%;" align="center">Penempatan</th>
-	   <th style="width: 20%;" align="center">Posisi</th>
-	   <th style="width: 5%;" align="center">AKSI</th>
+	   <th style="width: 15%;" align="center">Posisi</th>
+	   <th style="width: 10%;" align="center">AKSI</th>
      </tr>
    </thead>
    <tbody id="tableBody" style="font-family:trebuchet MS;">
@@ -83,8 +83,9 @@ if($_SESSION['level'] == "admin"){
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[penempatan]</td>
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[posisi]</td>
 					<td style='border:1px solid #CBF3C2; width: 100%;'><center>
-                    <a href='?file=edit_nilai&id_mhs=$row[nim_mhs]'><img src='images/det.png' width='16' height='16' border='0'></a> | 
-					<a href='?file=edit_nilai&id_applicant=$row[no_applicant]'><img src='images/edit.png' width='16' height='16' border='0'></a> |
+					<a href=\"#\" onclick=\"AddtoPenjadwalan($row[no_applicant]);return false;\"><img src='images/check.png' width='16' height='16' border='0'></a> |
+                    <a href='?file=show_applicant&id_mhs=$row[nim_mhs]'><img src='images/det.png' width='16' height='16' border='0'></a> | 
+					<a href='?file=adm_applicant&id_applicant=$row[no_applicant]'><img src='images/edit.png' width='16' height='16' border='0'></a> |
 					<a href='?file=del_applicant&id_applicant=$row[no_applicant]'><img src='images/del.png' width='16' height='16' border='0'></a>
 					</td>
 		         </tr>";
@@ -104,6 +105,34 @@ if($_SESSION['level'] == "admin"){
       <br />
 	     <br />
 </div></div></div>
+<script type="text/javascript">
+	function AddtoPenjadwalan(id)
+	{
+	
+	var conf = confirm("Tambahkan ke daftar penjadwalan?");
+	
+	if(conf==true)
+	{
+		$.ajax({
+			url:"admin/jadwal_add.php?no_applicant="+id,
+			type:"GET",
+			success:function(hasil)
+			{
+				if(hasil==1)
+				{
+					//alert("ok");
+					window.location = "home.php?file=penjadwalan";
+				}
+				else
+				{
+					alert(hasil);
+				}
+			}
+		 });
+	}
+	
+	}
+</script>
 <?php  ?>
 
 <?php 
