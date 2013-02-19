@@ -1,6 +1,26 @@
 <?php
 
 $id_applicant = $_GET['id_applicant'];
+
+function getNamaBulan($bulan) {
+	switch($bulan)
+	{
+		case 1 : return "Januari"; break;
+		case 2 : return "Februari"; break;
+		case 3 : return "Maret"; break;
+		case 4 : return "April"; break;
+		case 5 : return "Mei"; break;
+		case 6 : return "Juni"; break;
+		case 7 : return "Juli"; break;
+		case 8 : return "Agustus"; break;
+		case 9 : return "September"; break;
+		case 10: return "Oktober"; break;
+		case 11: return "November"; break;
+		case 12: return "Desember"; break;
+	}
+}
+
+
 if (!isset($_GET['id_applicant'])){
 ?>
 
@@ -133,7 +153,7 @@ if (!isset($_GET['id_applicant'])){
 <input class="button" type="reset" value="Reset">
 </form>
 
-<?php } else if (!empty( $_GET['id_applicant'])) {
+<?php } else if (!empty( $_GET['id_applicant']) && $_GET['mode'] == "edit") {
                $id_applicant = $_GET['id_applicant']; 
                $query = mysql_query("SELECT applicant.*, dayofmonth(applicant.tgl_lahir) as tanggal, month(applicant.tgl_lahir) as bulan, year(applicant.tgl_lahir) as tahun  FROM applicant where no_applicant = '$id_applicant'") or die (mysql_error());
                 if(mysql_num_rows($query) > 0){
@@ -277,6 +297,69 @@ if (!isset($_GET['id_applicant'])){
 	                </td></tr>
 		                <tr><td>Upload Image</td>
 	                <td>: <input type="file" name="imaage"></td></tr>
+	                  </table></tr>
+
+					<input class="button" type="submit" value="Save">
+					<input class="button" type="reset" value="Reset">
+					<INPUT type="button" VALUE="Kembali" onClick="history.go(-1)">
+                </form>
+<?php
+}
+}
+}
+elseif(!empty( $_GET['id_applicant']) && $_GET['mode'] == "view")
+{
+				$id_applicant = $_GET['id_applicant']; 
+               $query = mysql_query("SELECT applicant.*, dayofmonth(applicant.tgl_lahir) as tanggal, month(applicant.tgl_lahir) as bulan, year(applicant.tgl_lahir) as tahun  FROM applicant where no_applicant = '$id_applicant'") or die (mysql_error());
+                if(mysql_num_rows($query) > 0){
+                while($row=mysql_fetch_array($query)){ 
+             
+?>
+                <h3>Data Applicant</h3>
+                <table width=98%><tr>
+	                <tr><td>No Applicant</td>	
+	                <button value="edit applicant"><img src='images/edit.png' width='16' height='16' border='0'><a href='?file=adm_applicant&id_applicant=<?php echo $row['no_applicant']; ?>&mode=edit'>Edit Applicant</a></button>
+	                <td>: <?php echo $row['no_applicant']; ?></td></tr>
+	                <tr><td>Nomor Identitas</td>
+	                <td>: <?php echo $row['no_identitas']; ?></td></tr>
+	                <tr><td>Nama Lengkap</td>
+	                <td>: <?php echo $row['nama_lengkap']; ?></td></tr>
+	                <tr><td>Alamat</td>
+	                <td>: <?php echo $row['alamat']; ?></td></tr>
+	                <tr><td>Kota</td>
+	                <td>: <?php echo $row['kota']; ?></td></tr>
+	                <tr><td>No Tlp</td>
+	                <td>: <?php echo $row['no_tlp']; ?></td></tr>
+	                <tr><td>Email</td>
+	                <td>: <?php echo $row['email']; ?></td></tr>
+	                <tr><td>Tempat Kelahiran</td>
+	                <td>: <?php echo $row['tempat_lahir']; ?></td></tr>
+	                <tr><td><label for="jurl">Tanggal Lahir</label></td>
+                            <td>: <?php echo $row['tanggal']." ".getNamaBulan($row['bulan'])." ".$row['tahun']; ?></td></tr>
+	                <tr><td><label for="jurl">Jenis Kelamin</label></td>
+	                <td>:  <?php echo $row['jenis_kelamin']; ?>
+	
+	                </td></tr>
+	                <tr><td><label for="jurl">Status Perkawinan</label></td>
+	                <td>: <?php echo $row['status_pernikahan']; ?>
+	                </td></tr>
+	                <tr><td><label for="jurl">Agama</label></td>
+	                <td>: <?php echo $row['agama']; ?>
+	                </td></tr>
+	                <tr><td><label for="jurl">Golongan Darah</label></td>
+	                <td>: <?php echo $row['gol_darah']; ?>
+	                </td></tr>
+	                <tr><td><label for="jurl">Pendidikan Terakhir</label></td>
+		                <td>: <?php echo $row['pendidikan']; ?>
+	                </td></tr>
+	                <tr><td><label for="jurl">Penempatan</label></td>
+		                <td>: <?php echo $row['penempatan']; ?>
+	                </td></tr>
+		                <tr><td><label for="jurl">Posisi</label></td>
+		                <td>: <?php echo $row['posisi']; ?>
+	                </td></tr>
+		                <tr><td>Upload Image</td>
+	                <td>: <img src="<?php echo $row['image']; ?>"></img></td></tr>
 	                  </table></tr>
 
 					<input class="button" type="submit" value="Save">
