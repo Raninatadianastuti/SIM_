@@ -33,11 +33,8 @@ if($_SESSION['level'] == "admin"){
 	}
 
 ?>
-<p style="font-family:trebuchet MS; color:#006633; font-size:18px; text-decoration:underline; ">DAFTAR APPLICANTS</p>
-<br/><p>
-  
- 
- 
+<h3>Daftar Applicant</h3>
+
 <form name="form1" method="POST" action="?file=adm_data">
 	Cari: <select name="pilihan" id="pilihan">
 	<option value="no" <?php echo ($searchOptions == "no" ? "selected" : ""); ?>>No Applicant</option>
