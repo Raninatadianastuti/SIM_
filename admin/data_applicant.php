@@ -33,7 +33,7 @@ if($_SESSION['level'] == "admin"){
 	}
 
 ?>
-<p style="font-family:trebuchet MS; color:#006633; font-size:18px; text-decoration:underline; ">DAFTAR APPLICANT</p>
+<p style="font-family:trebuchet MS; color:#006633; font-size:18px; text-decoration:underline; ">DAFTAR APPLICANTS</p>
 <br/><p>
   
  
