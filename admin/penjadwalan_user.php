@@ -3,10 +3,8 @@ include "f_connect.php";
 if($_SESSION['level'] == "admin"){
 
 ?>
-<p style="font-family:trebuchet MS; color:#006633; font-size:18px; text-decoration:underline; ">PENJADWALAN USER</p>
-<br/><p>
+<h3>Penjadwalan User</h3>
   
- 
  <form name="form1" method="POST" action="">
 	Cari: <select name="pilihan" id="pilihan">
 	<option value="no">No Applicant</option>
