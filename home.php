@@ -29,19 +29,19 @@ if (!$_SESSION['username']){
 <?php if ($_SESSION['level'] == "admin"){?>
 <div id="menu_admin">
     <input type="button" value="Home" onclick="document.location='?file=welcome'" />
-    <input type="button" value="Keluar" onclick="document.location='f_logout.php'" />
+    <input type="button" value="Sign Out" onclick="document.location='f_logout.php'" />
 </div>
 <?php
-} else if ($_SESSION['level'] == "dosen"){?>
+} else if ($_SESSION['level'] == "manager"){?>
 <div id="menu_admin">
     <input type="button" value="Home" onclick="document.location='?file=welcome'" />
-    <input type="button" value="Keluar" onclick="document.location='?file=keluar'" />
+    <input type="button" value="Sign Out" onclick="document.location='?file=keluar'" />
 </div>
 <?php
 } else if ($_SESSION['level'] == "mahasiswa"){?>
 <div id="menu_admin">
     <input type="button" value="Home" onclick="document.location='?file=welcome'" />
-    <input type="button" value="Keluar" onclick="document.location='f_logout.php'" />
+    <input type="button" value="Sign Out" onclick="document.location='f_logout.php'" />
 </div>
 <?php
 } else {
@@ -105,23 +105,23 @@ switch($_GET['file']) {
 	  <li><a href="#">Human Capital</a>
 	  	<ul id="sub_menu">
 			<li><a href="?file=adm_data">Applicant</a></li>
-			<li><a href="?file=penjadwalan">Penjadwalan</a></li>
-			<li><a href="?file=konfirm">Konfirmasi</a></li>
+			<li><a href="?file=penjadwalan">Scheduling</a></li>
+			<li><a href="?file=konfirm">Confirmation</a></li>
 			<li><a href="?file=f_result">Result</a></li>
-			<li><a href="?file=inquiry">Inquiry</a></li>
 		</ul>
 	  </li>
-	  <li><a href="#">Pengiriman Karyawan</a>
+	  <li><a href="#">Sending Employees</a>
 	  	<ul id="sub_menu">
-			<li><a href="?file=penjadwalan2">Penjadwalan User</a></li>
+			<li><a href="?file=penjadwalan2">User Scheduling</a></li>
 			<li><a href="?file=inquiry_jadwal">Inquiry</a></li>
 		</ul>
 	  </li>
-	  <li><a href="?file=kry_hired">Karyawan Hired</a>
-	  <li><a href="?file=adm_dsn">Karyawan Terminate</a></li>
-	  <li><a href="?file=nilai">Rekapan</a></li>
-
-    </ul>
+	  <li><a href="#">Employees</a>
+		<ul id="sub_menu">
+			<li><a href="?file=kry_hired">Hired</a></li>
+			<li><a href="?file=adm_dsn">Terminate</a></li>
+		</ul>
+	  <li><a href="?file=nilai">Report</a></li>
 </div>
 
 
@@ -129,7 +129,7 @@ switch($_GET['file']) {
 
 <?php } ?>
 
-<?php if ($_SESSION['level'] == "dosen"){?>
+<?php if ($_SESSION['level'] == "manajer"){?>
 
 <div id="container_left" style='padding-left:160px'>
     <ul>
