@@ -21,7 +21,7 @@
 		$qryi=mysql_query("SELECT * from penjadwalan where no_applicant='$no_ap' and jadwal='0000-00-00'");
 		$cek_rows=mysql_num_rows($qryi);
 		if ($cek_rows==0){
-			echo "DATA YANG ANDA MASUKKAN KOSONG atau DATA SUDAH TERJADWAL";
+			echo "Data yang ada cari tidak ada atau data tersebut sudah terjadwalkan";
 		}else{
 					while ($data=mysql_fetch_array($sql)){
   
