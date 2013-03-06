@@ -60,8 +60,8 @@ WHERE penjadwalan.jadwal !='0000-00-00' AND konfirmasi = 1 AND status < 5";
 					<td style='border:1px solid #CBF3C2; width: 100%;'><center>"?>
 					<select name='konfirm'>
 					<option value=''>Pilih</option>
-					<option value='5' id="Qualified" onclick="prosesResult(<?php echo $row[no_applicant]; ?>,5);">Qualified</option>
-					<option value='6' id="Not Qualified" onclick="prosesResult(<?php echo $row[no_applicant]; ?>,6);">Not Qualified</option>
+					<option value='4' id="Qualified" onclick="prosesResult(<?php echo $row[no_applicant]; ?>,4);">Qualified</option>
+					<option value='5' id="Not Qualified" onclick="prosesResult(<?php echo $row[no_applicant]; ?>,5);">Not Qualified</option>
 					</select>
 					</td>
 		         </tr><?php
