@@ -27,8 +27,9 @@ if($_SESSION['level'] == "admin"){
 			case 3 : return "hadir"; break;
 			case 4 : return "tidak hadir"; break;
 			case 5 : return "qualified"; break;
-			case 6 : return "hired"; break;
-			case 7 : return "terminate"; break;
+			case 6 : return "not qualified"; break;
+			case 7 : return "hired"; break;
+			case 8 : return "terminate"; break;
 		}
 	}
 
