@@ -28,6 +28,7 @@ function getStatus($status) {
 		case 3 : return "hadir"; break;
 		case 4 : return "tidak hadir"; break;
 		case 5 : return "qualified"; break;
+		case 5 : return "not qualified"; break;
 		case 6 : return "hired"; break;
 		case 7 : return "terminate"; break;
 	}
