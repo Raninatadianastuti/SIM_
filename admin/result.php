@@ -58,10 +58,10 @@ WHERE penjadwalan.jadwal !='0000-00-00' AND konfirmasi = 1 AND status < 5";
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[posisi]</td>
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[penempatan]</td>
 					<td style='border:1px solid #CBF3C2; width: 100%;'><center>"?>
-					<select name='konfirm'>
+					<select name='result' id="result" onChange="prosesResult(<?php echo $row[no_applicant]; ?>)">
 					<option value=''>Pilih</option>
-					<option value='4' id="Qualified" onclick="prosesResult(<?php echo $row[no_applicant]; ?>,4);">Qualified</option>
-					<option value='5' id="Not Qualified" onclick="prosesResult(<?php echo $row[no_applicant]; ?>,5);">Not Qualified</option>
+					<option value='1'>Qualified</option>
+					<option value='0'>Not Qualified</option>
 					</select>
 					</td>
 		         </tr><?php
@@ -80,16 +80,26 @@ WHERE penjadwalan.jadwal !='0000-00-00' AND konfirmasi = 1 AND status < 5";
 
 <script type="text/javascript">
 
-function prosesResult(id,k){
 
-    var conf = confirm("Anda Yakin Applicant tersebut Qualified?");
+function prosesResult(id){
+	var idApplicant = id;
+	var statusApplicant = result.options[result.selectedIndex].value;
+	
+	if(statusApplicant == 1)
+	{
+		var conf = confirm("Anda Yakin Applicant tersebut Qualified?");
+    }
+    if(statusApplicant == 0)
+    {
+		var conf = confirm("Anda Yakin Applicant tersebut Not Qualified?");
+    }
 
     if(conf == true){
 
          //alert("OK... you chose to proceed with deletion of "+id);
 		 
 		 $.ajax({
-			url:"admin/result_pros.php?no_applicant="+id+"&k="+k,
+			url:"admin/result_pros.php?no_applicant="+idApplicant+"&status="+statusApplicant,
 			type:"GET",
 			success:function(hasil)
 			{
