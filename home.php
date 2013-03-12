@@ -70,6 +70,7 @@ switch($_GET['file']) {
 	case f_result : include "admin/result.php"; break;
 	case inquiry : include "admin/inquiry_step1.php"; break;
 	case penjadwalan2 : include "admin/penjadwalan_user.php"; break;
+	case penjadwalan_user : include "admin/proses_jadwal_user.php"; break;
 	case inquiry_jadwal : include "admin/inqury_jadwal.php"; break;
     	case hapus_mhs : include "admin/f_hapus_mhs.php"; break;
 		case hapus_dsn : include "admin/f_hapus_dsn.php"; break;
