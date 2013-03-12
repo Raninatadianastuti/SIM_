@@ -52,7 +52,6 @@ else {
 	//echo $imageerror;
 }
     
- 
 if ($mode == 'add'){
          $simpan = mysql_query ("INSERT INTO applicant VALUES ('$noap','$noid','$nama','$alamat','$kota','$tlp','$email','$ttl','$tgl_lahir',
 											'$jk','$status','$agama','$gol','$pend','$penempatan','$posisi','$foto','1')") or die("Kesalahan : ".mysql_error());

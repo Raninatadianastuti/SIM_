@@ -34,13 +34,6 @@ function getStatus($status) {
 	}
 }
 
-function getNoApp(){
-	include "f_connect.php";
-	$query = "SELECT no_applicant from applicant order by no_applicant DESC";
-	$getnos = mysql_query($query) or die(mysql_error());
-	$getno = mysql_fetch_row($getnos);
-	return $getno[0] + 1;
-}
 
 
 if (!isset($_GET['id_applicant'])){
@@ -50,7 +43,7 @@ if (!isset($_GET['id_applicant'])){
 <form method="POST" action="admin/f_simpan_add.php" enctype="multipart/form-data"><table width=98%><tr>
 	<input type="hidden" name="mode" value="add"></input>
 	<tr><td>No Applicant</td>	
-	<td>: <input type="text" name="no_applicant" size="30" value="<?php echo getNoApp(); ?>" readonly></input></td></tr>
+	<td>: <input type="text" name="no_applicant" size="30"></input></td></tr>
 	<tr><td>Nomor Identitas</td>
 	<td>: <input type="text" name="no_identitas" size="30"></input></td></tr>
 	<tr><td>Nama Lengkap</td>
@@ -168,7 +161,7 @@ if (!isset($_GET['id_applicant'])){
 	</select>
 	</td></tr>
 		<tr><td>Upload Image</td>
-	<td>: <input type="file" name="image"></td></tr>
+	<td>: <input type="file" name="imaage"></td></tr>
 	  </table></tr>
 
 <input class="button" type="submit" value="Save">
@@ -318,9 +311,7 @@ if (!isset($_GET['id_applicant'])){
 	                </select>
 	                </td></tr>
 		                <tr><td>Upload Image</td>
-	                <td>: <?php if($row['image'] != "") { ?><img src="uploaded_file/<?php echo $row['image']; ?>" width="50%"></img> <br> or you can delete uploaded image by check this <input type="checkbox" name="del_image" /><?php } else { echo "no image uploaded" ;}?> <br> or you can upload new image <input type="file" name="image">
-	                	<input type="hidden" name="saved_image" value="<?php echo $row['image']; ?>" />
-	                </td></tr>
+	                <td>: <input type="file" name="imaage"></td></tr>
 	                  </table></tr>
 
 					<input class="button" type="submit" value="Save">
@@ -336,8 +327,7 @@ elseif(!empty( $_GET['id_applicant']) && $_GET['mode'] == "view")
 				$id_applicant = $_GET['id_applicant']; 
                $query = mysql_query("SELECT applicant.*, dayofmonth(applicant.tgl_lahir) as tanggal, month(applicant.tgl_lahir) as bulan, year(applicant.tgl_lahir) as tahun  FROM applicant where no_applicant = '$id_applicant'") or die (mysql_error());
                 if(mysql_num_rows($query) > 0){
-                while($row=mysql_fetch_array($query)){ 
-             
+                while($row=mysql_fetch_array($query)){              
 ?>
                 <h3>Data Applicant</h3>
                 <table width=98%><tr>
@@ -383,7 +373,7 @@ elseif(!empty( $_GET['id_applicant']) && $_GET['mode'] == "view")
 		                <td>: <?php echo $row['posisi']; ?>
 	                </td></tr>
 		                <tr><td>Upload Image</td>
-	                <td>: <?php if($row['image'] != "") { ?><img src="uploaded_file/<?php echo $row['image']; ?>" width="50%"></img><?php } else { echo "no image uploaded" ; }?></td></tr>
+	                <td>: <img src="<?php echo $row['image']; ?>"></img></td></tr>
 	                  </table></tr>
 
 					<input class="button" type="submit" value="Save">
