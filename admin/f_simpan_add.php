@@ -31,7 +31,7 @@ $del_image = $_POST['del_image'];
 $saved_image = ($mode == 'update') ? $_POST['saved_image'] : "";
 
 //this is for image upload
-$imagename = $_FILES['image']['name'];
+$imagename = $noap._.$_FILES['image']['name'];
 $imagesize = $_FILES['image']['size'];
 $imageerror = $_FILES['image']['error'];
 
@@ -43,7 +43,7 @@ if($imagesize > 0 && $imageerror == 0)
 		$foto = $imagename;
 	}
 	else {
-		$foto = "";
+		$foto = "error";
 	}
 }
 else {

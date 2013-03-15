@@ -37,13 +37,17 @@ function getStatus($status) {
 
 
 if (!isset($_GET['id_applicant'])){
+	
+	//get latest number of registrant
+	$sql = mysql_query("SELECT no_applicant from applicant order by no_applicant DESC");
+	$no = mysql_fetch_row($sql);
 ?>
 
 <h3>Data Applicant</h3>
 <form method="POST" action="admin/f_simpan_add.php" enctype="multipart/form-data"><table width=98%><tr>
 	<input type="hidden" name="mode" value="add"></input>
 	<tr><td>No Applicant</td>	
-	<td>: <input type="text" name="no_applicant" size="30"></input></td></tr>
+	<td>: <input type="text" name="no_applicant" size="30" value="<?php echo $no[0]+1; ?>" readonly></input></td></tr>
 	<tr><td>Nomor Identitas</td>
 	<td>: <input type="text" name="no_identitas" size="30"></input></td></tr>
 	<tr><td>Nama Lengkap</td>
@@ -161,7 +165,7 @@ if (!isset($_GET['id_applicant'])){
 	</select>
 	</td></tr>
 		<tr><td>Upload Image</td>
-	<td>: <input type="file" name="imaage"></td></tr>
+	<td>: <input type="file" name="image"></td></tr>
 	  </table></tr>
 
 <input class="button" type="submit" value="Save">
@@ -310,8 +314,11 @@ if (!isset($_GET['id_applicant'])){
 		                <option value="field" <?php echo $row['posisi']=="field" ? "selected" : ""; ?>>Field People</option>
 	                </select>
 	                </td></tr>
-		                <tr><td>Upload Image</td>
-	                <td>: <input type="file" name="imaage"></td></tr>
+		                <tr><td>Uploaded Image</td>
+	                <td>: <?php echo ($row['image'] != "") ? "<img src=\"uploaded_file/".$row['image']."\" width=\"50%\" alt=\"profil\"></img>" : "no image uploaded";?>
+	                	<br> or you can upload new image <input type="file" name="image">
+	                	<br><?php echo ($row['image'] != "") ? "or you can delete the uploaded image <input type=\"checkbox\" name=\"del_image\" value=\"1\">" : " " ;?>
+	                </td></tr>
 	                  </table></tr>
 
 					<input class="button" type="submit" value="Save">
@@ -373,12 +380,12 @@ elseif(!empty( $_GET['id_applicant']) && $_GET['mode'] == "view")
 		                <td>: <?php echo $row['posisi']; ?>
 	                </td></tr>
 		                <tr><td>Upload Image</td>
-	                <td>: <img src="<?php echo $row['image']; ?>"></img></td></tr>
+	                <td>: <?php echo ($row['image'] != "") ? "<img src=\"uploaded_file/".$row['image']."\" width=\"50%\" alt=\"profil\"></img>" : "no image uploaded";?>	                	
+	                </td>
+	                </tr>
 	                  </table></tr>
 
-					<input class="button" type="submit" value="Save">
-					<input class="button" type="reset" value="Reset">
-					<INPUT type="button" VALUE="Kembali" onClick="history.go(-1)">
+					<INPUT type="button" VALUE="OK" onClick="history.go(-1)">
                 </form>
 <?php
 }

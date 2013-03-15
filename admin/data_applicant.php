@@ -83,7 +83,9 @@ if($_SESSION['level'] == "admin"){
 		if($searchOptions == "clear")
 		{
 			$query = "SELECT * from applicant";
-		}		
+		}
+		//add order
+		$query = $query." order by no_applicant DESC";		
 		$sql=mysql_query($query) or die(mysql_error());
         if(mysql_num_rows($sql) > 0){
 		  $x = 1;
@@ -101,6 +103,7 @@ if($_SESSION['level'] == "admin"){
 					<a href='#' onclick='deleteApplicant($row[no_applicant]);return false;'><img src='images/del.png' width='16' height='16' border='0'></a>
 					</td>
 					<td style='border:1px solid #CBF3C2;' align='center'>".getStatus($row['status'])."</td>
+					<input type=\"hidden\" id=\"status_".$row[no_applicant]."\" value=".$row['status'].">
 		         </tr>";
 			$x++;
 		  }
@@ -122,26 +125,35 @@ if($_SESSION['level'] == "admin"){
 	function AddtoPenjadwalan(id)
 	{
 	
-	var conf = confirm("Tambahkan ke daftar penjadwalan?");
-	
-	if(conf==true)
+	//check if registrant is ever scheduled or not
+	var status_reg = document.getElementById("status_"+id).value;
+	if(status_reg == 1)
 	{
-		$.ajax({
-			url:"admin/jadwal_add.php?no_applicant="+id,
-			type:"GET",
-			success:function(hasil)
-			{
-				if(hasil==1)
+		var conf = confirm("Tambahkan ke daftar penjadwalan?");
+		
+		if(conf==true)
+		{
+			$.ajax({
+				url:"admin/jadwal_add.php?no_applicant="+id,
+				type:"GET",
+				success:function(hasil)
 				{
-					//alert("ok");
-					window.location = "home.php?file=penjadwalan";
+					if(hasil==1)
+					{
+						//alert("ok");
+						window.location = "home.php?file=penjadwalan";
+					}
+					else
+					{
+						alert(hasil);
+					}
 				}
-				else
-				{
-					alert(hasil);
-				}
-			}
-		 });
+			 });
+		}
+	}
+	else
+	{
+		alert("Pendaftar ini sudah terjadwal.");
 	}
 	
 	}
