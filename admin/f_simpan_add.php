@@ -56,7 +56,7 @@ if ($mode == 'add'){
          $simpan = mysql_query ("INSERT INTO applicant VALUES ('$noap','$noid','$nama','$alamat','$kota','$tlp','$email','$ttl','$tgl_lahir',
 											'$jk','$status','$agama','$gol','$pend','$penempatan','$posisi','$foto','1')") or die("Kesalahan : ".mysql_error());
 		$jadwal=mysql_query ("INSERT INTO penjadwalan VALUES ('$noap','','0')") or die("Kesalahan : ".mysql_error());
-		$result=mysql_query ("INSERT INTO result VALUES ('$noap','$nama', '')") or die("Kesalahan : ".mysql_error());
+		$result=mysql_query ("INSERT INTO result VALUES ('$noap', '')") or die("Kesalahan : ".mysql_error());
           header('location:../home.php?file=adm_data');
         }else{
         echo "<font color=red>Data Gagal Disimpan</font>";
