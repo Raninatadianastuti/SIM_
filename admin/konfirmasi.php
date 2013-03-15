@@ -1,24 +1,39 @@
 <?php
-	$search = "";
-	$qWord = $_POST['no_applicant'];
+	//let's process search query
+	$search_no_applicant = $_POST['no_applicant'];
+	$search = $_POST['search'];
 	$searchMode = false;
-	if(isset($qWord) && $qWord != "")
+	if(isset($search) && $search_no_applicant != "")
 	{
-		$search = $qWord;
-		$searchMode = true;
+		$searchMode = true; //activate search mode		
 	}
-	if(isset($qWord) && $qWord === "")
+	
+	if(isset($search) && $search_no_applicant === "")
 	{
-		echo "Please, fill the search box";
+		$message = "Please, fill the search box"; //return message if search box is empty
+	}
+	
+	if(isset($_POST['clear']))
+	{
+		$searchMode = false;
 	}
 ?>
 <h3>Data Konfirmasi</h3>
 <form method="POST" action="?file=konfirm"><table width=98%><tr>
-	<input type="hidden" name="mode" value="add"></input>
 	<tr>
-	<td><input type="text" name="no_applicant" size="30" placeholder="No Applicant" value="<?php echo $search; ?>"></input><input class="button" type="submit" value="cari">
-</td></tr>
-	  </table></tr>
+	<td>
+	<input type="text" name="no_applicant" size="30" placeholder="No Applicant" value="<?php echo ($searchMode) ? $search_no_applicant : "" ; ?>"></input>
+	<input class="button" type="submit" value="cari" name="search">
+	<input name="clear" class="button" type="submit" id="clearSearch" value="Clear Search">
+	</td>
+	</tr>
+	<?php
+		if(!empty($message))
+		{
+			echo "<tr><td style=\"color:red;\">". $message ."</td></tr>";
+		}
+	?>
+	</table></tr>
 </form>
 
 <table width="100%">
@@ -30,25 +45,25 @@
 	   <th style="width: 25%;" align="center">Nama Lengkap</th>
 	   <th style="width: 15%;" align="center">Posisi</th>
 	   <th style="width: 15%;" align="center">Penempatan</th>
-	   <th style="width: 5%;" align="center">Konfirmasi</th>
+	   <th style="width: 5%;" align="center"><?php echo ($searchMode) ? "Status" : "Konfirmasi" ;?></th>
      </tr>
    </thead>
    <tbody id="tableBody" style="font-family:trebuchet MS;">
   <?php
-		include "f_connect.php";
-		$query = "SELECT applicant.no_applicant, applicant.nama_lengkap, applicant.penempatan, applicant.posisi, penjadwalan.jadwal FROM applicant
-LEFT JOIN penjadwalan ON applicant.no_applicant = penjadwalan.no_applicant
-WHERE penjadwalan.jadwal !='0000-00-00' AND applicant.status = 2";
-		$searchQuery = "AND applicant.no_applicant = '$search'";
 		if($searchMode)
 		{
-			$query = $query.$searchQuery;
+			$sql = mysql_query("SELECT *, status.status as on_status from applicant LEFT JOIN penjadwalan on applicant.no_applicant = penjadwalan.no_applicant LEFT JOIN status on status.id_status = applicant.status where applicant.no_applicant = '$search_no_applicant' AND applicant.status = status.id_status") or die(mysql_error());
 		}
-		//echo $query;
-		$sql=mysql_query($query) or die("Kesalahan : ".mysql_error());
-        if(mysql_num_rows($sql) > 0){
+		else 
+		{
+		$query = mysql_query("SELECT applicant.no_applicant, applicant.nama_lengkap, applicant.penempatan, applicant.posisi, penjadwalan.jadwal FROM applicant
+LEFT JOIN penjadwalan ON applicant.no_applicant = penjadwalan.no_applicant
+WHERE penjadwalan.jadwal !='0000-00-00' AND applicant.status = 2") or die("Kesalahan : ". mysql_error());
+		}
+		
+        if(mysql_num_rows($query) > 0){
 		  $x = 1;
-		  while($row=mysql_fetch_array($sql)){
+		  while($row=mysql_fetch_array($query)){
 			echo "
 				<tr $row[no_applicant]>
 					<td style='border:1px solid #CBF3C2;' align='center'>$x</td>
@@ -57,6 +72,14 @@ WHERE penjadwalan.jadwal !='0000-00-00' AND applicant.status = 2";
                     <td style='border:1px solid #CBF3C2;' align='center'>$row[nama_lengkap]</td>
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[posisi]</td>
 					<td style='border:1px solid #CBF3C2;' align='center'>$row[penempatan]</td>
+				";
+				if($searchMode)
+				{
+					echo "<td style='border:1px solid #CBF3C2;' align='center'>$row[on_status]</td>";
+				}
+				else
+				{
+					echo "
 					<td style='border:1px solid #CBF3C2; width: 100%;'><center>"?>
 					<select name='konfirm' id="konfirmasi" onChange="prosesKonfirmasi(<?php echo $row[no_applicant]; ?>)">
 					<option value=''>Pilih</option>
@@ -65,6 +88,7 @@ WHERE penjadwalan.jadwal !='0000-00-00' AND applicant.status = 2";
 					</select>
 					</td>
 		         </tr><?php
+		         }
 			$x++;
 		  }
 		} else {
